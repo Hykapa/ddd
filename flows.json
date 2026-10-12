@@ -14,5 +14,27 @@
         "disabled": false,
         "info": "",
         "env": []
+    },
+    {
+        "id": "15e733df31d1e8cb",
+        "type": "csv",
+        "z": "0da4453f645af30d",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": "",
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 290,
+        "y": 380,
+        "wires": [
+            []
+        ]
     }
 ]
