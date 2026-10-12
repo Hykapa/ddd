@@ -1,0 +1,12 @@
+{
+    "name": "Test",
+    "description": "A Logic-weave Project",
+    "version": "0.0.1",
+    "dependencies": {},
+    "logic-weave": {
+        "settings": {
+            "flowFile": "flows.json",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "id": "0da4453f645af30d",
+        "type": "tab",
+        "label": "Gemini DoH Proxy",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "gemini_tab",
+        "type": "tab",
+        "label": "Gemini DoH Proxy Fixed",
+        "disabled": false,
+        "info": "",
+        "env": []
+    }
+]
