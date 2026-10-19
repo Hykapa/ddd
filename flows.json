@@ -48,8 +48,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 580,
-        "y": 480,
+        "x": 760,
+        "y": 220,
         "wires": [
             [
                 "ws_out_fixed"
