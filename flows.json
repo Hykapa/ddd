@@ -16,25 +16,103 @@
         "env": []
     },
     {
-        "id": "15e733df31d1e8cb",
-        "type": "csv",
+        "id": "ws_config_fixed",
+        "type": "websocket-listener",
+        "path": "/ws-shared",
+        "wholemsg": "false"
+    },
+    {
+        "id": "ws_in_fixed",
+        "type": "websocket in",
         "z": "0da4453f645af30d",
-        "name": "",
-        "spec": "rfc",
-        "sep": ",",
-        "hdrin": "",
-        "hdrout": "none",
-        "multi": "one",
-        "ret": "\\r\\n",
-        "temp": "",
-        "skip": "0",
-        "strings": true,
-        "include_empty_strings": "",
-        "include_null_values": "",
-        "x": 290,
-        "y": 380,
+        "name": "Вход WS",
+        "server": "ws_config_fixed",
+        "client": "",
+        "x": 340,
+        "y": 420,
         "wires": [
-            []
+            [
+                "ws_broadcast_func"
+            ]
         ]
+    },
+    {
+        "id": "ws_broadcast_func",
+        "type": "function",
+        "z": "0da4453f645af30d",
+        "name": "Бродкаст другим клиентам",
+        "func": "// Сохраняем последнее состояние в памяти потока\nflow.set('shared_text', msg.payload);\n\n// Удаляем идентификатор сессии отправителя,\n// чтобы Node-RED отправил сообщение ВСЕМ клиентам, КРОМЕ автора\ndelete msg._session;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 480,
+        "wires": [
+            [
+                "ws_out_fixed"
+            ]
+        ]
+    },
+    {
+        "id": "ws_out_fixed",
+        "type": "websocket out",
+        "z": "0da4453f645af30d",
+        "name": "Выход WS",
+        "server": "ws_config_fixed",
+        "client": "",
+        "x": 990,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "http_in_fixed",
+        "type": "http in",
+        "z": "0da4453f645af30d",
+        "name": "GET /editor2",
+        "url": "/editor2",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 370,
+        "y": 560,
+        "wires": [
+            [
+                "html_template_fixed"
+            ]
+        ]
+    },
+    {
+        "id": "html_template_fixed",
+        "type": "template",
+        "z": "0da4453f645af30d",
+        "name": "HTML Страница",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Синхронный ввод</title>\n    <style>\n        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background: #fafafa; }\n        .card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 420px; }\n        input { width: 100%; padding: 10px; font-size: 16px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px; }\n        input:focus { border-color: #007bff; outline: none; }\n        .status { margin-top: 15px; font-size: 13px; color: #666; }\n    </style>\n</head>\n<body>\n    <div class=\"card\">\n        <h3>Совместный ввод текста:</h3>\n        <input type=\"text\" id=\"txt-input\" placeholder=\"Пишите...\" autocomplete=\"off\">\n        <div class=\"status\" id=\"status\">Инициализация...</div>\n    </div>\n\n    <script>\n        const input = document.getElementById('txt-input');\n        const status = document.getElementById('status');\n        \n        let loc = window.location;\n        let wsUri = (loc.protocol === \"https:\" ? \"wss://\" : \"ws://\") + loc.host + \"/ws-shared\";\n\n        status.innerText = \"Подключение...\";\n        const ws = new WebSocket(wsUri);\n\n        ws.onopen = () => {\n            status.innerText = \"🟢 Соединение установлено\";\n            status.style.color = \"green\";\n        };\n\n        ws.onerror = () => {\n            status.innerText = \"🔴 Ошибка WebSocket\";\n            status.style.color = \"red\";\n        };\n\n        ws.onclose = () => {\n            status.innerText = \"⚫️ Соединение закрыто\";\n            status.style.color = \"gray\";\n        };\n\n        ws.onmessage = (event) => {\n            if (input.value !== event.data) {\n                // Сохраняем выделение и каретку\n                const start = input.selectionStart;\n                const end = input.selectionEnd;\n                const isFocused = (document.activeElement === input);\n                \n                input.value = event.data;\n                \n                if (isFocused && start !== null) {\n                    input.setSelectionRange(start, end);\n                }\n            }\n        };\n\n        input.addEventListener('input', () => {\n            if (ws.readyState === WebSocket.OPEN) {\n                ws.send(input.value);\n            }\n        });\n    </script>\n</body>\n</html>",
+        "output": "str",
+        "x": 600,
+        "y": 560,
+        "wires": [
+            [
+                "http_out_fixed"
+            ]
+        ]
+    },
+    {
+        "id": "http_out_fixed",
+        "type": "http response",
+        "z": "0da4453f645af30d",
+        "name": "Ответ HTML",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 560,
+        "wires": []
     }
 ]
