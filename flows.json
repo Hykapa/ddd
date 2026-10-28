@@ -1,66 +1,17 @@
 [
     {
-        "id": "0da4453f645af30d",
+        "id": "tab_ws",
         "type": "tab",
-        "label": "Gemini DoH Proxy",
+        "label": "WS Lobbies",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "05c9e56263d6f388",
+        "type": "tab",
+        "label": "Поток 1",
         "disabled": false,
         "info": "",
         "env": []
-    },
-    {
-        "id": "gemini_tab",
-        "type": "tab",
-        "label": "Gemini DoH Proxy Fixed",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "08914b3a7b9c8498",
-        "type": "http in",
-        "z": "0da4453f645af30d",
-        "name": "",
-        "url": "/www",
-        "method": "get",
-        "upload": false,
-        "skipBodyParsing": false,
-        "swaggerDoc": "",
-        "x": 280,
-        "y": 560,
-        "wires": [
-            [
-                "7816f12bbf71515f"
-            ]
-        ]
-    },
-    {
-        "id": "7816f12bbf71515f",
-        "type": "template",
-        "z": "0da4453f645af30d",
-        "name": "",
-        "field": "payload",
-        "fieldType": "msg",
-        "format": "handlebars",
-        "syntax": "mustache",
-        "template": "<h1>hello</h1>",
-        "output": "str",
-        "x": 460,
-        "y": 540,
-        "wires": [
-            [
-                "fca53a6359b3e947"
-            ]
-        ]
-    },
-    {
-        "id": "fca53a6359b3e947",
-        "type": "http response",
-        "z": "0da4453f645af30d",
-        "name": "",
-        "statusCode": "",
-        "headers": {},
-        "x": 730,
-        "y": 460,
-        "wires": []
     }
 ]
