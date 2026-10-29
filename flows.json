@@ -21,8 +21,26 @@
         "name": "",
         "scope": [],
         "uncaught": false,
-        "x": 791.5,
-        "y": 200,
+        "x": 731.5,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d316a4e7bd36aa9",
+        "type": "function",
+        "z": "tab_ws",
+        "name": "function 1",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 544.5,
+        "y": 447,
         "wires": [
             []
         ]
