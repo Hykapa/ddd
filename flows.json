@@ -13,5 +13,18 @@
         "disabled": false,
         "info": "",
         "env": []
+    },
+    {
+        "id": "0ad28e9cf2a98f42",
+        "type": "complete",
+        "z": "tab_ws",
+        "name": "",
+        "scope": [],
+        "uncaught": false,
+        "x": 599.5,
+        "y": 313,
+        "wires": [
+            []
+        ]
     }
 ]
